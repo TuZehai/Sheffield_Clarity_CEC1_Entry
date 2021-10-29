@@ -1,0 +1,65 @@
+[network_config]
+N_spec = 256
+N_spat = 128 # 6 * 30
+L = 20
+B = 256
+H = 512
+P = 3
+X = 6
+R = 4
+C = 1  # num_speakers
+num_channels = 6  # should be consistent with dataloader num_channels
+norm_type = 'cLN'
+causal = true
+mask_nonlinear = 'relu'
+
+[optimizer]
+lr = 1e-3
+
+[loss]
+loss_func = 'snr'  # [snr, si-snr, mse]
+
+[listener]
+listener_ear = 'l'
+listener_sr = 44100 # 44100
+src_pos = 'ff'
+downsample_factor = 2
+
+[train_dataset]
+data_path = '/fastdata/acp18zt/CLARITY_DATA/clarity_CEC1_data/clarity_data/train/scenes/'
+scene_path = '/fastdata/acp18zt/CLARITY_DATA/clarity_CEC1_data/clarity_data/metadata/scenes.train.json'
+sr = 44100 # 44100
+downsample_factor = 2  # consistent with listener
+wav_sample_len = 2
+wav_silence_len = 2
+num_channels = 6
+norm = false
+
+[train_dataloader]
+batch_size = 10
+shuffle = true
+num_workers = 40
+drop_last = true
+pin_memory = true
+
+[validation_dataset]
+data_path = '/fastdata/acp18zt/CLARITY_DATA/clarity_CEC1_data/clarity_data/dev/scenes/'
+scene_path = '/fastdata/acp18zt/CLARITY_DATA/clarity_CEC1_data/clarity_data/metadata/scenes.dev.json'
+sr = 44100 # 44100
+downsample_factor = 2  # consistent with listener
+wav_sample_len = 2
+wav_silence_len = 2
+num_channels = 6
+norm = false
+
+[validation_dataloader]
+batch_size=1
+shuffle=false
+num_workers = 40
+
+[trainer]
+epochs = 200
+save_checkpoint_interval = 10
+clip_grad_norm_value = 5.0
+exp_path = 'exp_den_convtasnet'
+resume = false
