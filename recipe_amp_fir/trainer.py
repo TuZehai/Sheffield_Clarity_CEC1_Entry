@@ -13,7 +13,6 @@ from tensorboardX import SummaryWriter
 sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..')))
 from hearinglossmodel import MSBGHearingModel, torchloudnorm
 
-sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..', '..')))
 from MSBG.ear import Ear
 from MSBG.audiogram import Audiogram
 from pystoi import stoi
